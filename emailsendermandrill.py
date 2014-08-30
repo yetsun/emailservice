@@ -7,7 +7,7 @@ class EmailSenderMandrill:
         pass
         
         
-    def send_email(from, to, subject, text):
+    def send(self, from_email, to, subject, text):
         """
         this is to acutally send the email
         return false if it failed
