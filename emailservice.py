@@ -23,7 +23,7 @@ class EmailService:
         return re.match(r"[a-zA-Z0-9]+(\.?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.?[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{2,}", email_address)
             
         
-    def send_email(from_email, to, subject, text):
+    def send_email(self, from_email, to, subject, text):
         """
         This is to send email by the email sender class and failover on the class.
         It will also validate the from, to email address. Validate the subject and email content text.
