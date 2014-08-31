@@ -11,15 +11,21 @@ class EmailSenderMailGun:
         
         
         
-    def send(self, from_email, to, subject, text):
+    def send(self, from_email, to_list, subject, text):
         """
         this is to acutally send the email
+        
+        from_email is one single email address
+        to_list is a list of email address
+        
         return 0 if the sending sucess
         return 1 if the sending failed
         return 5 if the configuration is not complete
         """
         api_url = self._conf.get('mailgun_api_url');
         key = self._conf.get('mailgun_key');
+        
+        to = ','.join(to_list)
         
         if not api_url or not key:
             return 5, 'configuration not complete'

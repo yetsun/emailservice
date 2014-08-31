@@ -23,7 +23,7 @@ class EmailService:
         return re.match(r"[a-zA-Z0-9]+(\.?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.?[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{2,}", email_address)
             
         
-    def send_email(self, from_email, to, subject, text):
+    def send_email(self, from_email, to_list, subject, text):
         """
         This is to send email by the email sender class and failover on the class.
         It will also validate the from, to email address. Validate the subject and email content text.
@@ -40,22 +40,32 @@ class EmailService:
         if not self.validate_email_address(from_email):
             return 1, 'from email address invalid'
         
-        if not self.validate_email_address(to):
+        if to_list is None or len(to_list) == 0:
             return 2, 'to email address invalid'
+        else:
+            for to_email in to_list:
+                if not self.validate_email_address(to_email):
+                    to_list.remove(to_email)
+                    
+            if len(to_list) == 0:
+                return 2, 'to email address invalid'
         
         if not subject and not text:
             return 3, 'subject and text both are empty'
             
         
-        status, message = self._senders[self._sender_id].send(from_email, to, subject, text);
+        status, message = self._senders[self._sender_id].send(from_email, to_list, subject, text);
         
-        if status != 0:
+        if status == 0:
+            message = 'success'
+        else:
             self._sender_id = (self._sender_id + 1) % len(self._senders)
-            status, message = self._senders[self._sender_id].send(from_email, to, subject, text);
-            if status == 5:
-                return 5, 'configuration not complete'
+            status, message = self._senders[self._sender_id].send(from_email, to_list, subject, text);
+            if status == 0:
+                message = 'success'
             else:
-                return 4, 'all message sender failed. error message:' + message
+                status = 4
+                message = 'Emails failed in sending. The error message is as followed:\n' + message
         
         return status, message
         

@@ -1,0 +1,4 @@
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject","text":"test text"}'  http://localhost:5000/emailservice/api/v1.0/sendemail
+
+
+curl -i -H "Content-Type: application/json -X POST -d  '{"from":"yetsun@gmail.com","to1":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject","text":"test text"}'  http://localhost:5000/emailservice/api/v1.0/sendemail
