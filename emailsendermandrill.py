@@ -89,9 +89,9 @@ class EmailSenderMandrill:
                 
             message = str(response.content)
           
-            print 'mandrill'
-            print status
-            print message
+            #print 'mandrill'
+            #print status
+            #print message
           
             return status, message
                 

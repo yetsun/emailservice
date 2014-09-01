@@ -41,7 +41,7 @@ class EmailSenderMailGun:
         if len(bcc_list) > 0:
             data_dict['bcc'] = ','.join(bcc_list)
         
-        print data_dict
+        #print data_dict
         
         if not api_url or not key:
             return 5, 'configuration not complete'
@@ -57,9 +57,9 @@ class EmailSenderMailGun:
                 status = 1
             message = str(response.content)
             
-            print 'mailgun'
-            print status
-            print message
+            #print 'mailgun'
+            #print status
+            #print message
                             
             return status, message
                 
