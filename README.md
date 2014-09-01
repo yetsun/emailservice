@@ -133,7 +133,8 @@ The help API is available in
 http://54.68.21.228/emailservice/api/v1.0/sendemail/help
 
 Following is a test script:
+```
 curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject301","text":"test text"}'  http://54.68.21.228/emailservice/api/v1.0/sendemail
-
+```
 
 
