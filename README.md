@@ -117,6 +117,52 @@ There is no UI for this project. It can be tested through curl or any tool that 
 -Unit test cases are included in test.py
 -End to end test scripts are included in test_script.txt (using curl)
 
+Following are the scripts to test the service deployed on EC2:
+
+-send email to one address
+```
+curl -i -H "Content-Type: application/json" -X POST -d \
+ '{"from":"yetsun@gmail.com","to":"yetsun@gmail.com", "subject":"test subject","text":"This is an test email."}' \
+  http://54.68.21.228/emailservice/api/v1.0/sendemail
+ 
+```
+output:
+```
+{
+  "message": "success", 
+  "status": 0
+}
+```
+
+-send email with to, cc and bcc address
+```
+curl -i -H "Content-Type: application/json" -X POST -d  \
+'{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"], "cc": "yetsun@gmail.com", "bcc":["youxiang2006@hotmail.com"], "subject":"test subject full to/cc/bcc","text":"test text"}' \
+ http://54.68.21.228/emailservice/api/v1.0/sendemail
+```
+
+output:
+```
+{
+  "message": "success", 
+  "status": 0
+}
+```
+
+
+-send email with invalid to/cc/bcc, expects erroring out
+```
+curl -i -H "Content-Type: application/json" -X POST -d \
+ '{"from":"yetsun@gmail.com","to":[],"cc":"@hotmail.com", "bcc": ["xxx"], "subject":"test subject","text":"test text"}'  \
+ http://54.68.21.228/emailservice/api/v1.0/sendemail
+```
+output:
+```
+{
+  "message": "No valid to/cc/bcc email address. Please provide at least one valid to/cc/bcc email address.", 
+  "status": 2
+}
+```
 
 #Architecture
 
