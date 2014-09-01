@@ -63,11 +63,13 @@ There is no UI for this project. It is a REST API. It is accessible through HTTP
 
 
 method: POST
+
 input: 
 - One from email address
 - at least one to or cc or bcc email address
 - email subject
 - email content (Email subject and email content cannot be both empty)
+
 input format: json
 
 JSON key | Meaning
