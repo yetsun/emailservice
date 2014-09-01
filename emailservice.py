@@ -38,6 +38,7 @@ class EmailService:
         """
         This is a helper method to convert a string into a list with the string only
         Or if the input is already list, simply return itself
+        Meanwhile if the email address is invalid, remove it from the list
         """
         if isinstance(list_or_string, list):            
             

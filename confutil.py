@@ -1,11 +1,16 @@
 class ConfUtil:
+    """
+    This is the helper class to get the configuration from file
+    """
     def __init__(self, path):
         self._conf = None
         self._path = path
     
     
     def parseConf(self):
-        
+        """
+        Parse the configuration file and return an dict object
+        """
         confFile = file(self._path, 'rU')
         self._conf = {}
         for line in confFile:
@@ -26,6 +31,10 @@ class ConfUtil:
         #print self._dict
     
     def get(self, key):
+        """
+        Get the value from the configuration by the key
+        return None if the key is not there
+        """
         if not self._conf:
             self.parseConf()
         

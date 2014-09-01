@@ -20,6 +20,8 @@ class EmailSenderMailGun:
         cc_list is a list. It could be an empty list.
         bcc_list is a list. It could be an empty list.
         
+        here, we can assume the input parameters are all valid
+        
         return 0 if the sending sucess
         return 1 if the sending failed
         return 5 if the configuration is not complete

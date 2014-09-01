@@ -33,6 +33,7 @@ reporting on the failure rate of the email service providers
 
 -logging
 -naming the email address
+-scheduling email deliver
 
 
 #Link to other code you're particularly proud of
