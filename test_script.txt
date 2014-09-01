@@ -1,44 +1,32 @@
-curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject","text":"test text"}'  http://localhost:5000/emailservice/api/v1.0/sendemail
+########## help api ###############
+curl -i -X GET  http://localhost/emailservice/api/v1.0/sendemail/help
+
+########### the following scripts are for end-to-end testing ################
+#send
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject","text":"test text"}'  http://localhost/emailservice/api/v1.0/sendemail
+
+#send to/cc/bcc
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"], "cc": "yetsun@gmail.com", "bcc":["youxiang2006@hotmail.com"], "subject":"test subject full to/cc/bcc","text":"test text"}'  http://localhost/emailservice/api/v1.0/sendemail
+
+#send only cc
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","cc":"yetsun@gmail.com","subject":"test subject only cc","text":"test text"}'  http://localhost/emailservice/api/v1.0/sendemail
+
+#send only bcc
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","bcc":["yetsun@gmail.com"],"subject":"test subject only bcc","text":"test text"}'  http://localhost/emailservice/api/v1.0/sendemail
+
+#send invalid to/cc/bcc
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":[],"cc":"@hotmail.com", "bcc": ["xxx"], "subject":"test subject","text":"test text"}'  http://localhost/emailservice/api/v1.0/sendemail
+
+#send empty subject and text
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"","text":""}'  http://localhost/emailservice/api/v1.0/sendemail
 
 
-curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to1":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject","text":"test text"}'  http://localhost:5000/emailservice/api/v1.0/sendemail
 
 
 
 
-
+#####the following script is to test mandril implementation####
 curl -i -H "Content-Type: application/json" -X POST -d  '{"key": "XfU9i2CeNA2LY6BZ1CQJwQ","message": {"text": "Example text content1","subject": "example subject3","from_email": "yetsun@gmail.com","to":[{"email":"yetsun@gmail.com","type": "to"}]},"async": false,"send_at":"2014-07-01 00:00:00"}'  https://mandrillapp.com/api/1.0/messages/send.json
 
-
-
-
-
-https://mandrillapp.com/api/1.0/messages/send.json
-
-
-
-
-
-{
-    "key": "XfU9i2CeNA2LY6BZ1CQJwQ",
-    "message": {
-        "text": "Example text content1",
-        "subject": "example subject3",
-        "from_email": "yetsun@gmail.com",
-        "to": [
-            {
-                "email": "yetsun@gmail.com",
-                "type": "to"
-            }
-        ]
-    },
-    "async": false,
-    "send_at":"2014-07-01 00:00:00"
-}
-
-
-
-
-curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject301","text":"test text"}'  http://54.68.21.228/emailservice/api/v1.0/sendemail
 
 
