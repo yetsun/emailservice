@@ -41,6 +41,16 @@ Method POST or GET and it takes no input parameter.
 It is to help the user of the /sendemail API to understand what it is and how to use it.
 
 
+**Amazon EC2 Deployment**
+This Email Service is uploaded to Amazon EC2. It's available in 
+http://54.68.21.228/emailservice/api/v1.0/sendemail
+The help API is available in 
+http://54.68.21.228/emailservice/api/v1.0/sendemail/help
+
+Following is a test script:
+curl -i -H "Content-Type: application/json" -X POST -d  '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"],"subject":"test subject301","text":"test text"}'  http://54.68.21.228/emailservice/api/v1.0/sendemail
+
+
 
 
 
