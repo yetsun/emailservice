@@ -13,8 +13,11 @@ back-end
 
 #Reasoning behind your technical choices
 It is built with Python. The web framework is Flask.
+
 I haven't used Python in work. I learnt Python recently, it is easy and fun to learn and use Python. The Python code is much more concise than Java. I can focus more on the logic I want to make. The Python dynamic typing and duck typing are very interesting to me. It is very fast to code and deploy in Python too, which saves me a ton of time comparing to Java.
+
 Flask is a light-weighted, easy to use web framework. The web part of this project is just to serve the HTTP POST request for the REST API. So I think Flask is a good fit for this project.
+
 Overall, for this project, it's very interesting to use Python and explore new technologies. I enjoyed using Python and the whole time of making this project.
 
 
