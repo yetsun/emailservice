@@ -70,6 +70,16 @@ input:
 - email content (Email subject and email content cannot be both empty)
 input format: json
 
+JSON key | Meaning
+-------- | -------
+from     | string, the sender email address
+to       | string or list, the to email address(es)
+cc       | string or list, the cc email address(es)
+bcc      | string or list, the bcc email address(es)
+subject  | the email subject
+text     | full text content of the email to be sent
+
+
 Following is a sample input json:
 ```
 {
