@@ -63,13 +63,17 @@ def help():
 
 @app.route('/emailservice/api/v1.0/sendemail', methods = ['POST'])
 def send_email():
-    
+    """
+    This is to serve the main API of the email service.
+    It take a JSON in and send a JSON out.
+    It does an simple validation on the input JSON, while the most of the validation is done in EmailService.
+    """    
 
     json_dict = request.json
    
     if not json_dict.has_key("from") \
         or (not json_dict.has_key("to") and not json_dict.has_key("cc") and not json_dict.has_key("bcc")) \
-        or (not json_dict.has_key("subject") or not json_dict.has_key("text")): 
+        or (not json_dict.has_key("subject") and not json_dict.has_key("text")): 
         
         status = 101
         message = "Please provide from email address, to/cc/bcc email address(es), email subject and email content in a json object. A sample json:" + str(SAMPLE_INPUT_JSON)
