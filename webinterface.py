@@ -27,6 +27,7 @@ SAMPLE_OUTPUT_JSON = {'status': 0, 'messgae':'success'}
     
 
 @app.route('/emailservice/api/v1.0/sendemail/help', methods = ['POST', 'GET'])
+@app.route('/emailservice/api/v1.0/sendemail', methods = ['GET'])
 def help():
     """
     This is the help of this API.
@@ -37,7 +38,7 @@ def help():
     sample_output_json = {'status': 0, 'messgae':'success'}
     
     help_message = "Welcome to the Email Service! This service is to send emails. " \
-        + "Please provide the following parameters: "\
+        + "Please provide the following parameters in POST method: "\
         + "- from email address "\
         + "- to email address(es) (a list or a string if only one email address)"\
         + "- cc email address(es) (a list or a string if only one email address)"\
