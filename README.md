@@ -40,6 +40,7 @@ reporting on the failure rate of the email service providers
 -logging
 -naming the email address
 -scheduling email deliver
+-for massive email sending, a.k.a sending a email to a large number of recipients, the ability batch it and chop the recipient list into smaller pieces.
 
 
 ##Link to other code you're particularly proud of
