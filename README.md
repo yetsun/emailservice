@@ -109,11 +109,13 @@ This is for successfully transaction.
 
 You can consider any non-0 status code as an error. The message will give details. 
 Following are typical errors, in the format of status code and message:
--1 from email address invalid
--2 to/cc/bcc email address invalid
--3 subject and text both are empty
--4 all email sender failed
--5 email provider configuration not complete
+status code | message
+----------- | ------------------
+1           | from email address invalid
+2           | to/cc/bcc email address invalid
+3           | subject and text both are empty
+4           | all email sender failed
+5           | email provider configuration not complete
 
 
 ###Help API
@@ -127,12 +129,12 @@ input: N/A
 
 ##Testing
 There is no UI for this project. It can be tested through curl or any tool that can send HTTP POST requests.
--Unit test cases are included in test.py
--End to end test scripts are included in test_script.txt (using curl)
+- Unit test cases are included in test.py
+- End to end test scripts are included in test_script.txt (using curl)
 
 Following are the scripts to test the service deployed on EC2:
 
--send email to one address
+- send email to one address
 ```
 curl -i -H "Content-Type: application/json" -X POST -d \
  '{"from":"yetsun@gmail.com","to":"yetsun@gmail.com", "subject":"test subject","text":"This is an test email."}' \
@@ -147,7 +149,7 @@ output:
 }
 ```
 
--send email with to, cc and bcc address
+- send email with to, cc and bcc address
 ```
 curl -i -H "Content-Type: application/json" -X POST -d  \
 '{"from":"yetsun@gmail.com","to":["yetsun@gmail.com", "youxiang2006@hotmail.com"], "cc": "yetsun@gmail.com", "bcc":["youxiang2006@hotmail.com"], "subject":"test subject full to/cc/bcc","text":"test text"}' \
@@ -163,7 +165,7 @@ output:
 ```
 
 
--send email with invalid to/cc/bcc, expects erroring out
+- send email with invalid to/cc/bcc, expects erroring out
 ```
 curl -i -H "Content-Type: application/json" -X POST -d \
  '{"from":"yetsun@gmail.com","to":[],"cc":"@hotmail.com", "bcc": ["xxx"], "subject":"test subject","text":"test text"}'  \
@@ -182,13 +184,20 @@ output:
 ![alt tag](https://raw.githubusercontent.com/yetsun/emailservice/master/image/email_service_layers.png)
 
 It's a 3 layers architecture.
-- The webinterface.py is the presentation layer. It serves the REST API requests.
-- The EmailService is the business layer. It handles the business logic like email address validation, provides the abstraction of email service providers and failover.
-- The EmailSender is the email service provider specific implementation. It actually calls the email service provider's API to send emails.
+- The webinterface.py is the presentation layer. It serves the REST API requests, calls the EmailSevice and sends response back.
+- The EmailService is the business layer. It handles the business logic like email address validation, calls the EmailSender and failover on the EmailSenders. It is not aware of the email service providers details, but will retry with another EmailSender, if one failed.
+- The EmailSender is the email service provider specific implementation. But it provides the abstraction of email service providers through a common method interface. It actually calls the email service provider's API to send emails.
 	There is one email sender implemented MailGun and another Mandrill. 
 	During testing, it is found that MailGun doesn't support cc only emails, which are the emails with only the cc emails address, with no to address. This is a good test case for the fail over. When the MailGun is the current first email sender, and send an email with only the cc email address, it will failover to the Mandrill email sender.
+	The email service provider specific configuration like API key and URL are available in a .conf file. ConfUtil.py is the utility class to handle the access to the .conf file.
 
+This 3 layers architecture is to organize or isolate the code based on function and responsibility.
 
+The benefits are 
+
+1. Vertically, each layer can focus on it's own function and responsibility. And let the other layers take care of the rest. In this Email Service, the presentation layer(webinterface.py) only need to take care of serving the REST API request and sending the response back. It doesn't need to know what to do with the income data, how to do it and the logic behind it, which is the responsibility of the business layer (emailservice.py). While emailservice doesn't need to know about the email service provider implementation, thanks to the email senders. The email senders are email service provider specific, but provide the abstraction of the implementation through a common method interface. In this way, the code is clear and easy to maintain and test.
+
+2. Horizontally, within a certain layer, the components can be exchangeable, if well designed. In this Email Service, the email senders implemented the email service provider MailGun and Mandrill. If a new email service provider is required, simply create a new email sender to implement the new email service provider. It will work with the other layer, as long as it follows the same interface. So the code is scalable. 
 
 ##Amazon EC2 Deployment
 
