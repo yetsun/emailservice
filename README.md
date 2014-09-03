@@ -109,8 +109,9 @@ This is for successfully transaction.
 
 You can consider any non-0 status code as an error. The message will give details. 
 Following are typical errors, in the format of status code and message:
+
 status code | message
------------ | ------------------
+----------- | -------
 1           | from email address invalid
 2           | to/cc/bcc email address invalid
 3           | subject and text both are empty
